@@ -9,16 +9,11 @@ venv/
 .ipynb_checkpoints/
 
 # Data artifacts
-/data/processed/**
-!/data/processed/.gitkeep
-/data/external/**
-!/data/external/.gitkeep
-/results/logs/**
-!/results/logs/.gitkeep
-/results/figures/**
-!/results/figures/.gitkeep
-/results/tables/**
-!/results/tables/.gitkeep
+data/processed/**
+data/external/**
+results/logs/**
+results/figures/**
+results/tables/**
 
 # OS/editor
 .DS_Store

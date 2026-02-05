@@ -4,61 +4,60 @@ This repository contains the Spring 2026 independent study project supervised by
 
 > **Hierarchical Multi-Agent Reinforcement Learning for Congestion-Aware Vessel Scheduling with Predictive Port Coordination**
 
-## Quick Start
+## Project Goals
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r env/requirements.txt
-pip install -r env/requirements-dev.txt
-./scripts/check.sh
-```
-
-## What is ready now
-
-- Python package scaffold under `src/hmarl/` with modules for simulation, agents, forecasting, training, and utilities.
-- Baseline configuration in `configs/default.json`.
-- Unit tests for config loading, forecasting baseline, and environment stepping.
-- Dev tooling setup with Ruff, MyPy, Pytest, and pre-commit hooks.
-- GitHub collaboration templates and CI workflow.
+- Build a hierarchical MARL framework with:
+  - 1 Fleet Coordinator agent
+  - 8 Vessel agents
+  - 5 Port agents
+- Integrate medium- and short-term congestion forecasting for proactive coordination.
+- Evaluate operational outcomes: delay, fuel consumption, emissions, and system-wide cost.
+- Analyze economic outcomes related to shipping reliability and effective transport pricing.
 
 ## Repository Layout
 
 ```text
 .
-├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   ├── workflows/
-│   └── pull_request_template.md
-├── configs/
-│   └── default.json
+├── .github/                    # Issue/PR templates + CI workflow
+├── configs/                    # Experiment and environment configs
+├── data/
+│   ├── raw/                    # Immutable source datasets (AIS, etc.)
+│   ├── external/               # Third-party/alternative data
+│   └── processed/              # Generated feature tables and simulation inputs
 ├── docs/
-│   └── research-proposal.md
-├── env/
-│   ├── requirements.txt
-│   └── requirements-dev.txt
-├── scripts/
-│   └── check.sh
-├── src/hmarl/
-│   ├── agents/
-│   ├── forecasting/
-│   ├── sim/
-│   ├── train/
-│   ├── utils/
-│   └── config.py
-└── tests/
+│   └── research-proposal.md    # Full project proposal and timeline
+├── env/                        # Environment and dependency manifests
+├── notebooks/                  # Exploratory analysis and reporting notebooks
+├── results/
+│   ├── figures/
+│   ├── logs/
+│   └── tables/
+├── scripts/                    # Utility scripts for training/evaluation pipelines
+└── src/                        # Core simulation, forecasting, and MARL modules
 ```
 
-## Next build steps
+## Initial Milestones
 
-1. Implement discrete-event simulator mechanics in `src/hmarl/sim/`.
-2. Add heuristic baseline policies in `src/hmarl/agents/`.
-3. Implement short- and medium-term forecasting models in `src/hmarl/forecasting/`.
-4. Build MAPPO/CTDE training and evaluation loops in `src/hmarl/train/`.
+1. Implement the discrete-event maritime simulation environment.
+2. Add heuristic baselines for fleet, vessel, and port decision-making.
+3. Implement forecasting pipelines (short-term and medium-term).
+4. Train and compare MARL settings:
+   - Independent agents
+   - Reactive coordinated agents
+   - Forecast-informed coordinated agents
+   - Oracle upper bound
+
+## Development Workflow
+
+- Open an issue for each major experiment or infrastructure change.
+- Use small PRs tied to clear milestones.
+- Keep experiment configs versioned under `configs/`.
+- Store run metadata and metrics in `results/logs/`.
 
 ## Documentation
 
 - Full proposal: [`docs/research-proposal.md`](docs/research-proposal.md)
+- Use pull request template for methodology and evaluation checklists.
 
 ## License
 

@@ -1,4 +1,4 @@
-name: CI
+name: Docs and structure checks
 
 on:
   pull_request:
@@ -6,25 +6,6 @@ on:
     branches: [main, master, work]
 
 jobs:
-  lint-and-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r env/requirements.txt
-          pip install -r env/requirements-dev.txt
-      - name: Lint
-        run: ruff check src tests
-      - name: Type check
-        run: mypy src
-      - name: Tests
-        run: pytest -q
-
   markdown:
     runs-on: ubuntu-latest
     steps:
