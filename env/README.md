@@ -1,3 +1,2 @@
-# Environment Setup
-
-Add dependency manifests here (e.g., `requirements.txt`, `pyproject.toml`, `environment.yml`) once implementation begins.
+MVP mode: no mandatory dependency install file yet.
+Use system Python + pytest.

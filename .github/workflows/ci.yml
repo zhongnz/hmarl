@@ -1,4 +1,4 @@
-name: Docs and structure checks
+name: MVP CI
 
 on:
   pull_request:
@@ -6,11 +6,12 @@ on:
     branches: [main, master, work]
 
 jobs:
-  markdown:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: DavidAnson/markdownlint-cli2-action@v16
+      - uses: actions/setup-python@v5
         with:
-          globs: |
-            **/*.md
+          python-version: "3.10"
+      - name: Run tests
+        run: PYTHONPATH=src pytest -q
