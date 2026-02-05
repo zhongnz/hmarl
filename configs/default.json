@@ -1,0 +1,20 @@
+{
+  "project": {
+    "name": "hmarl",
+    "seed": 42
+  },
+  "environment": {
+    "vessels": 8,
+    "ports": 5,
+    "episode_horizon": 100
+  },
+  "forecasting": {
+    "short_term_horizon_hours": 24,
+    "medium_term_horizon_days": 7
+  },
+  "training": {
+    "algorithm": "mappo",
+    "total_timesteps": 100000,
+    "eval_interval": 5000
+  }
+}
