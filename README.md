@@ -1,38 +1,68 @@
 # HMARL MVP Skeleton
 
-This repository now contains a minimal but usable skeleton for building the project incrementally.
+This repository is a **working skeleton** for your hierarchical maritime RL project.
+It is intentionally small, but each part is now connected and testable.
 
-## Step-by-step skeleton (what + why)
+## What has been implemented (step-by-step)
 
-1. **Simulation core (`src/hmarl/sim/env.py`)**
-   - **What**: A tiny environment with `reset`, `step`, and `sample_action`.
-   - **Why**: All future MARL logic needs a stable environment API first.
+### Step 1 — Environment API (`src/hmarl/sim/env.py`)
+**What it does**
+- Defines `MaritimeConfig` for episode settings.
+- Defines `MaritimeEnv` with `reset`, `step`, and `sample_action`.
+- Tracks four observable values: `progress`, `fuel`, `congestion`, and `steps_left_ratio`.
 
-2. **Scenario defaults (`src/hmarl/sim/scenario.py`)**
-   - **What**: A dataclass with base counts (1 coordinator, 8 vessels, 5 ports).
-   - **Why**: Keep project assumptions in one place to avoid hardcoding values.
+**Why this matters**
+- Every RL pipeline depends on a stable environment interface.
+- We can now train/evaluate policies without changing API contracts later.
 
-3. **Agent policy skeleton (`src/hmarl/agents/policy.py`)**
-   - **What**: A baseline constant-speed policy and observation type.
-   - **Why**: Gives a deterministic baseline to test the training/evaluation pipeline.
+### Step 2 — Scenario defaults (`src/hmarl/sim/scenario.py`)
+**What it does**
+- Centralizes baseline study assumptions: 1 coordinator, 8 vessels, 5 ports.
 
-4. **Forecasting skeleton (`src/hmarl/forecasting/naive.py`)**
-   - **What**: A repeat-last forecaster.
-   - **Why**: Provides a simple placeholder to wire forecast inputs before real models.
+**Why this matters**
+- Prevents hardcoding project constants in multiple places.
 
-5. **Training/rollout skeleton (`src/hmarl/train/rollout.py`)**
-   - **What**: A single-episode runner that uses a policy with the environment.
-   - **Why**: Connects env + policy in one path you can later replace with MAPPO loops.
+### Step 3 — Policy baseline (`src/hmarl/agents/policy.py`)
+**What it does**
+- Introduces `VesselObservation`.
+- Implements `ConstantSpeedPolicy` that returns `[speed, slot_request]`.
 
-6. **Tests (`tests/`)**
-   - **What**: Smoke tests for env, policy, forecasting, and rollout.
-   - **Why**: Confirms each layer works before adding complexity.
+**Why this matters**
+- Provides a deterministic baseline policy for debugging and comparisons.
 
-7. **Colab demo (`notebooks/mvp_demo.ipynb`)**
-   - **What**: Self-contained runnable notebook.
-   - **Why**: Quick reproducible demo without local setup friction.
+### Step 4 — Forecasting placeholder (`src/hmarl/forecasting/naive.py`)
+**What it does**
+- `repeat_last(values, horizon)` returns a simple naive forecast.
 
-## Run locally
+**Why this matters**
+- Lets you wire forecast-dependent logic before building complex models.
+
+### Step 5 — Rollout connector (`src/hmarl/train/rollout.py`)
+**What it does**
+- `run_rollout(env, policy)` executes one complete episode.
+- Converts environment observations into policy observations.
+
+**Why this matters**
+- This is the minimum training loop backbone you will later replace with MARL updates.
+
+### Step 6 — Test coverage (`tests/`)
+**What it does**
+- Validates environment step loop.
+- Validates policy action output.
+- Validates naive forecasting behavior.
+- Validates rollout execution.
+
+**Why this matters**
+- Keeps the skeleton reliable while you expand complexity.
+
+### Step 7 — Colab demo (`notebooks/mvp_demo.ipynb`)
+**What it does**
+- Self-contained notebook that runs in Google Colab directly.
+
+**Why this matters**
+- Quick demo path for supervision/review without local environment setup.
+
+## Local command
 
 ```bash
 PYTHONPATH=src pytest -q
